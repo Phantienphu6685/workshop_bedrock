@@ -1,0 +1,92 @@
+[
+{
+	"uri": "/",
+	"title": "AWS BEDROCK",
+	"tags": [],
+	"description": "",
+	"content": "BUILDING AI-ENABLED APPS WITH AWS BEDROCK Overall This hands-on activity demonstrates how to build a serverless architecture using AWS services to integrate AI functionalities. In this scenario, a client application (like Postman) sends requests to an API Gateway. The gateway triggers an AWS Lambda function, which then connects with AWS Bedrock to process AI-driven operations. IAM roles ensure the Lambda function has secure access to Bedrock. This pattern supports scalable, serverless applications that leverage generative AI services.\nKey Components: Client App (Postman or Web App): Sends HTTP requests to invoke the backend.\nAmazon API Gateway: Accepts requests and routes them to the appropriate Lambda function.\nAWS Lambda: Executes backend logic and invokes Bedrock APIs.\nAWS Bedrock: Performs AI-related tasks (e.g., text generation, summarization).\nIAM Role: Grants Lambda permission to interact securely with Bedrock. Content Introduction Preparation Connect to EC2 instance Manage session logs Port Forwarding Clean up resources "
+},
+{
+	"uri": "/2-prerequiste/2.1-createbedrock/",
+	"title": "Create Bedrock ",
+	"tags": [],
+	"description": "",
+	"content": "\rTo allow our applications to send requests and receive responses from the AI ​​model on AWS Bedrock, we will grant bedrock:InvokeModel access so that Lambda can invoke the model through the Bedrock service.\nCreate Bedrock First step, go to AWS Management Console to launch Bedrock Models. Click Model access Click Enable all models In the Edit model access Check Al121 Labs (3) Check Amazon (15) Check Anthropic (12) Check Cohere (6) Check DeepSeek (1) Check Meta (2) Check Misstral AI (5) Check Stability AI (1) Then, select Next and Submit "
+},
+{
+	"uri": "/1-introduce/",
+	"title": "Introduction",
+	"tags": [],
+	"description": "",
+	"content": "AWS Bedrock is a cloud-based service that streamlines the use and deployment of large language models (LLMs) from top AI providers. With a serverless foundation, it allows developers to seamlessly access powerful AI capabilities without managing infrastructure or computational resources.\nKey Highlights of AWS Bedrock:\nNo Infrastructure Hassle: Run AI models without the need to provision or maintain servers, storage, or GPUs.\nAccess to Leading LLMs: Connect directly to models from top providers like Anthropic, Cohere, Stability AI, Amazon Titan, and others.\nFlexible Customization: Fine-tune models to meet your business requirements without retraining from scratch.\nData Privacy and Security: Your data stays within your AWS environment, maintaining full control and compliance.\nSmooth Integration with AWS Services: Easily connect with services like S3, Lambda, and SageMaker for building complete AI solutions.\nPay-Only-for-Use: Benefit from a usage-based pricing model, paying only for what you consume.\nWith the above advantages, you can use Session Manager instead of using Bastion host technique to save us time and money when managing Bastion server.\n"
+},
+{
+	"uri": "/3-test/3.1-public-instance/",
+	"title": "Send a Request Using Postman",
+	"tags": [],
+	"description": "",
+	"content": " Open the Postman Test application. At the main interface. Click on New. Choose HTTP. Select POST method to send In the URL box, paste the Invoke URL obtained from API Gateway. Switch to the Body tab, select raw and JSON format Enter the following random test content: {\r\u0026#34;prompt\u0026#34;: \u0026#34;help me translate hello from english to vietnamese.\u0026#34;\r} Add \u0026ldquo;/ask\u0026rdquo; extension to call AI answering function from Bedrock\nBefore testing, you need to make sure Amazon\u0026rsquo;s access models work!\nNow everything is ready for testing.\n"
+},
+{
+	"uri": "/2-prerequiste/2.2-createiamrole/",
+	"title": "Create IAM Role",
+	"tags": [],
+	"description": "",
+	"content": "\rIn this step, we will create an IAM Role. This IAM Role will be assigned the AmazonBedrockFullAccess policy, which allows Lambda to communicate with Bedrock.\nCreate IAM Role Go to IAM service administration interface In the left navigation bar, click Roles. Click Create role In the Trusted entity Type table, select AWS Service Select Lambda in the Service or use case menu Click Next In the search box, type bedrock Check the AmazonBedrockFullAccess box Click Next In the Role name box, name it ChatGPPTLambdaRole Next, click Create role Check that the Role has been created successfully "
+},
+{
+	"uri": "/2-prerequiste/",
+	"title": "Preparation ",
+	"tags": [],
+	"description": "",
+	"content": "\rYou need to create 1 Linux instance on the public subnet and 1 Window instance on the private subnet to perform this lab.\nTo learn how to create AWS Bedrock, IAM Roles, Lambda and API Gateway, you can refer to the lab:\nAbout Bedrock About IAM Roles About Lambda About API Gateway To use AWS Bedrock effectively, we need to ensure that Lambda functions and other AWS services are granted the necessary permissions. In this preparation step, we will also create an IAM Role to enable these permissions.\nContent Prepare VPC and EC2 Create IAM Role "
+},
+{
+	"uri": "/3-test/3.2-private-instance/",
+	"title": "Result",
+	"tags": [],
+	"description": "",
+	"content": "After pressing Send, you will see the results displayed in the Body \u0026gt; Pretty tab.\nTry sending again and see the results Test with another question Congratulations, you have completed this lab on creating and testing a serverless API using AWS Lambda, API Gateway, and Bedrock. Remember to perform resource cleanup to avoid unwanted costs.\n"
+},
+{
+	"uri": "/2-prerequiste/2.3-createlambda/",
+	"title": "Create Lambda ",
+	"tags": [],
+	"description": "",
+	"content": "\rAfter granting access to Bedrock via IAM Role, the next step is to create an AWS Lambda function to handle requests from API Gateway. Lambda will take input (prompt), send it to the AI ​​model on Bedrock, and return the result. This is an important middleware that connects the frontend (e.g. Postman or Web) with the powerful AI service on the backend of AWS.\nCreate Lambda In this step, we create a Lambda to act as a bridge between your API Gateway and AWS Bedrock. Go to Lambda management console. Click Create a function Configure information for Lambda Click Author from scratch In the function name box, name ChatGPTLambda Select language Python 3.13 Select Arm64 Select Use an existing role Choose ChatGPTLambdaRole you created Finally, check again and select Create function Once created, Click Configuration. Click Edit. Set Memory to 500 MB. Set Timeout to 2 minutes. Confirm the chatGPTLambdaRole is selected. Click Save. After saving, select code Import this code: import boto3\rimport json\r# Khởi tạo client Bedrock\rbedrock = boto3.client(\rservice_name=\u0026#39;bedrock-runtime\u0026#39;,\rregion_name=\u0026#39;us-east-1\u0026#39;\r)\rmodelId = \u0026#39;cohere.command-text-v14\u0026#39;\rdef lambda_handler(event, context):\rprint(\u0026#39;=== Incoming Event ===\u0026#39;)\rprint(json.dumps(event))\rtry:\r# Parse body từ sự kiện\rif \u0026#39;body\u0026#39; not in event:\rraise Exception(\u0026#34;Missing \u0026#39;body\u0026#39; in request.\u0026#34;)\rrequest_body = json.loads(event[\u0026#39;body\u0026#39;])\rprompt = request_body.get(\u0026#39;prompt\u0026#39;, \u0026#39;\u0026#39;).strip()\rif not prompt:\rraise Exception(\u0026#34;Prompt is empty. Please provide a valid prompt.\u0026#34;)\r# Chuẩn bị payload gửi đến Bedrock\rpayload = {\r\u0026#39;prompt\u0026#39;: prompt,\r\u0026#39;max_tokens\u0026#39;: 200,\r\u0026#39;temperature\u0026#39;: 1.0,\r\u0026#39;return_likelihoods\u0026#39;: \u0026#39;NONE\u0026#39;\r}\rprint(\u0026#34;=== Payload Sent to Bedrock ===\u0026#34;)\rprint(json.dumps(payload))\r# Gửi yêu cầu tới Bedrock\rresponse = bedrock.invoke_model(\rmodelId=modelId,\rbody=json.dumps(payload),\raccept=\u0026#39;application/json\u0026#39;,\rcontentType=\u0026#39;application/json\u0026#39;\r)\r# Đọc phản hồi từ Bedrock\rresponse_body_raw = response.get(\u0026#39;body\u0026#39;)\rif not response_body_raw:\rraise Exception(\u0026#34;No response body returned from Bedrock.\u0026#34;)\rresponse_body = json.loads(response_body_raw.read())\rprint(\u0026#34;=== Bedrock Full Response ===\u0026#34;)\rprint(json.dumps(response_body))\r# Trích xuất kết quả\rgenerations = response_body.get(\u0026#39;generations\u0026#39;, [])\rif generations and \u0026#39;text\u0026#39; in generations[0]:\rgenerated_text = generations[0][\u0026#39;text\u0026#39;]\relse:\rgenerated_text = \u0026#34;No valid output generated.\u0026#34;\rreturn {\r\u0026#39;statusCode\u0026#39;: 200,\r\u0026#39;body\u0026#39;: json.dumps({\r\u0026#39;prompt\u0026#39;: prompt,\r\u0026#39;response\u0026#39;: generated_text\r})\r}\rexcept Exception as e:\rprint(\u0026#39;=== ERROR ===\u0026#39;)\rprint(str(e))\rreturn {\r\u0026#39;statusCode\u0026#39;: 500,\r\u0026#39;body\u0026#39;: json.dumps({\r\u0026#39;error\u0026#39;: str(e)\r})\r} After coding is complete, select Deploy. If successful, you will receive a notification. "
+},
+{
+	"uri": "/3-test/",
+	"title": "Run Postman",
+	"tags": [],
+	"description": "",
+	"content": "In this step, we will test the Chatbot’s response using Postman.\nContent 3.1. Send a Request Using Postman 3.2. Result\n"
+},
+{
+	"uri": "/2-prerequiste/2.4-creategateway/",
+	"title": "Create API Gateway ",
+	"tags": [],
+	"description": "",
+	"content": "\rNext, we will create an API Gateway to serve as a gateway to receive HTTP requests from users or applications (e.g. Postman). The API Gateway will forward these requests to the Lambda function we created in the previous step. This allows us to easily call the AI ​​model through a public URL, without having to manage complex server infrastructure.\nCreate API Gateway In this step, we will create an API Gateway that will act as an entry point to trigger your Lambda with HTTP requests. Go to the API Gateway management console.. bỏ link Under the REST API section, click Build. Configuration for Rest API In the API Detail menu, select New API In the API Name table, name it: chatgpt-api Then select Create API Next step A success message will appear. Click Create resource. Next step Create resource In the Resource name box, type ask Click CORS(Cross Origin Resource Sharing) Click Create resource. Next step, Create method A success message will appear.\nClick Create method. Select POST type in Method type\nIn integration type select Lambda function Enable Lambda proxy integration\nChoose us-east-1\nEnter us-east-1:youraccountid:function:chatGPTLambda.\nClick Create method In create resource, find and select POST Then, choose Deploy API In the Deploy API panel, select New stage in Stage In Stage name, give it the name you want and Click Deploy. After successful creation, we will receive Invoke URL which will help us Send HTTP request (GET/POST) from tools like Postman You need to save this URL for later use.\n"
+},
+{
+	"uri": "/4-cleanup/",
+	"title": "Clean Up Resources",
+	"tags": [],
+	"description": "",
+	"content": "We will perform the following steps to delete the resources created in this lab.\nDelete API Gateway Go to the API Gateway service management console Select APIs. Select the chatbot-ai API that you created. Click Delete.\nConfirm and click Delete\nDelete Lambda Go to the Lambda service management console - Session Manager. Select the Function tab. Check the chatGPT Lambda function you created. In the Action menu, choose Delete.\nConfirm and click Delete\nDelete IAM Role Go to the IAM Role service management console In the left navigation pane, select Roles. Check the Roles you created. Click Delete.\nConfirm and click Delete\n"
+},
+{
+	"uri": "/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]
