@@ -9,24 +9,24 @@
 
     <link rel="icon" href="./images/favicon.png" type="image/png">
 
-    <title>AWS System Manager :: AWS System Manager</title>
+    <title>AWS BEDROCK :: AWS System Manager</title>
 
     
-    <link href="./css/nucleus.css?1754626871" rel="stylesheet">
-    <link href="./css/fontawesome-all.min.css?1754626871" rel="stylesheet">
-    <link href="./css/hybrid.css?1754626871" rel="stylesheet">
-    <link href="./css/featherlight.min.css?1754626871" rel="stylesheet">
-    <link href="./css/perfect-scrollbar.min.css?1754626871" rel="stylesheet">
-    <link href="./css/auto-complete.css?1754626871" rel="stylesheet">
-    <link href="./css/atom-one-dark-reasonable.css?1754626871" rel="stylesheet">
-    <link href="./css/theme.css?1754626871" rel="stylesheet">
-    <link href="./css/hugo-theme.css?1754626871" rel="stylesheet">
+    <link href="./css/nucleus.css?1754627858" rel="stylesheet">
+    <link href="./css/fontawesome-all.min.css?1754627858" rel="stylesheet">
+    <link href="./css/hybrid.css?1754627858" rel="stylesheet">
+    <link href="./css/featherlight.min.css?1754627858" rel="stylesheet">
+    <link href="./css/perfect-scrollbar.min.css?1754627858" rel="stylesheet">
+    <link href="./css/auto-complete.css?1754627858" rel="stylesheet">
+    <link href="./css/atom-one-dark-reasonable.css?1754627858" rel="stylesheet">
+    <link href="./css/theme.css?1754627858" rel="stylesheet">
+    <link href="./css/hugo-theme.css?1754627858" rel="stylesheet">
     
-    <link href="./css/theme-workshop.css?1754626871" rel="stylesheet">
+    <link href="./css/theme-workshop.css?1754627858" rel="stylesheet">
     
     
 
-    <script src="./js/jquery-3.3.1.min.js?1754626871"></script>
+    <script src="./js/jquery-3.3.1.min.js?1754627858"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,15 +57,15 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="./js/lunr.min.js?1754626871"></script>
-<script type="text/javascript" src="./js/auto-complete.js?1754626871"></script>
+<script type="text/javascript" src="./js/lunr.min.js?1754627858"></script>
+<script type="text/javascript" src="./js/auto-complete.js?1754627858"></script>
 <script type="text/javascript">
     
 
         var baseurl = "https:\/\/phantienphu6685.github.io\/workshop_bedrock\/";
     
 </script>
-<script type="text/javascript" src="./js/search.js?1754626871"></script>
+<script type="text/javascript" src="./js/search.js?1754627858"></script>
 
     
   </div>
@@ -498,17 +498,24 @@
 <a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
 </span>
 
-           
-	
-		<h1>Customize your own home page</h1>
-		<p>
-		  The site is working. Don't forget to customize this homepage with your own. You typically have 3 choices :
-		</p>
-		<ul>
-			<li><b>1. </b> Create an _index.md document in <b>content</b> folder and fill it with Markdown content</li>
-			<li><b>2. </b> Create an <b>index.html</b> file in the <b>static</b> folder and fill the file with HTML content</li>
-		  <li><b>3. </b> Configure your server to automatically redirect home page to one your documentation page</li>
-		</ul>
+ 
+<h1 id="building-ai-enabled-apps-with-aws-bedrock">BUILDING AI-ENABLED APPS WITH AWS BEDROCK</h1>
+<h3 id="overall">Overall</h3>
+<p>This hands-on activity demonstrates how to build a serverless architecture using AWS services to integrate AI functionalities. In this scenario, a client application (like Postman) sends requests to an API Gateway. The gateway triggers an AWS Lambda function, which then connects with AWS Bedrock to process AI-driven operations. IAM roles ensure the Lambda function has secure access to Bedrock. This pattern supports scalable, serverless applications that leverage generative AI services.</p>
+<h3 id="key-components">Key Components:</h3>
+<p>Client App (Postman or Web App): Sends HTTP requests to invoke the backend.</p>
+<p>Amazon API Gateway: Accepts requests and routes them to the appropriate Lambda function.</p>
+<p>AWS Lambda: Executes backend logic and invokes Bedrock APIs.</p>
+<p>AWS Bedrock: Performs AI-related tasks (e.g., text generation, summarization).</p>
+<p>IAM Role: Grants Lambda permission to interact securely with Bedrock.</p>
+<p><img src="./images/arc-log.png" alt="ConnectPrivate"></p>
+<h3 id="content">Content</h3>
+<ol>
+<li><a href="./1-introduce/">Introducation</a></li>
+<li><a href="./2-prerequiste/">Preparation</a></li>
+<li><a href="3-Accessibilitytoinstance/">Run Postman</a></li>
+<li><a href="6-cleanup/">Clean Up Resources</a></li>
+</ol>
 	
   
         
@@ -724,19 +731,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="./js/clipboard.min.js?1754626871"></script>
-    <script src="./js/perfect-scrollbar.min.js?1754626871"></script>
-    <script src="./js/perfect-scrollbar.jquery.min.js?1754626871"></script>
-    <script src="./js/jquery.sticky.js?1754626871"></script>
-    <script src="./js/featherlight.min.js?1754626871"></script>
-    <script src="./js/highlight.pack.js?1754626871"></script>
+    <script src="./js/clipboard.min.js?1754627858"></script>
+    <script src="./js/perfect-scrollbar.min.js?1754627858"></script>
+    <script src="./js/perfect-scrollbar.jquery.min.js?1754627858"></script>
+    <script src="./js/jquery.sticky.js?1754627858"></script>
+    <script src="./js/featherlight.min.js?1754627858"></script>
+    <script src="./js/highlight.pack.js?1754627858"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="./js/modernizr.custom-3.6.0.js?1754626871"></script>
-    <script src="./js/learn.js?1754626871"></script>
-    <script src="./js/hugo-learn.js?1754626871"></script>
+    <script src="./js/modernizr.custom-3.6.0.js?1754627858"></script>
+    <script src="./js/learn.js?1754627858"></script>
+    <script src="./js/hugo-learn.js?1754627858"></script>
 
-    <link href="./mermaid/mermaid.css?1754626871" rel="stylesheet" />
-    <script src="./mermaid/mermaid.js?1754626871"></script>
+    <link href="./mermaid/mermaid.css?1754627858" rel="stylesheet" />
+    <script src="./mermaid/mermaid.js?1754627858"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

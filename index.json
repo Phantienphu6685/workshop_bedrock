@@ -1,5 +1,12 @@
 [
 {
+	"uri": "https://phantienphu6685.github.io/workshop_bedrock/",
+	"title": "AWS BEDROCK",
+	"tags": [],
+	"description": "",
+	"content": "BUILDING AI-ENABLED APPS WITH AWS BEDROCK Overall This hands-on activity demonstrates how to build a serverless architecture using AWS services to integrate AI functionalities. In this scenario, a client application (like Postman) sends requests to an API Gateway. The gateway triggers an AWS Lambda function, which then connects with AWS Bedrock to process AI-driven operations. IAM roles ensure the Lambda function has secure access to Bedrock. This pattern supports scalable, serverless applications that leverage generative AI services.\nKey Components: Client App (Postman or Web App): Sends HTTP requests to invoke the backend.\nAmazon API Gateway: Accepts requests and routes them to the appropriate Lambda function.\nAWS Lambda: Executes backend logic and invokes Bedrock APIs.\nAWS Bedrock: Performs AI-related tasks (e.g., text generation, summarization).\nIAM Role: Grants Lambda permission to interact securely with Bedrock.\nContent Introducation Preparation Run Postman Clean Up Resources "
+},
+{
 	"uri": "https://phantienphu6685.github.io/workshop_bedrock/2-prerequiste/2.1-createbedrock/",
 	"title": "Create Bedrock ",
 	"tags": [],
@@ -68,13 +75,6 @@
 	"tags": [],
 	"description": "",
 	"content": "We will perform the following steps to delete the resources created in this lab.\nDelete API Gateway Go to the API Gateway service management console Select APIs. Select the chatbot-ai API that you created. Click Delete.\nConfirm and click Delete\nDelete Lambda Go to the Lambda service management console - Session Manager. Select the Function tab. Check the chatGPT Lambda function you created. In the Action menu, choose Delete.\nConfirm and click Delete\nDelete IAM Role Go to the IAM Role service management console In the left navigation pane, select Roles. Check the Roles you created. Click Delete.\nConfirm and click Delete\n"
-},
-{
-	"uri": "https://phantienphu6685.github.io/workshop_bedrock/",
-	"title": "AWS System Manager",
-	"tags": [],
-	"description": "",
-	"content": ""
 },
 {
 	"uri": "https://phantienphu6685.github.io/workshop_bedrock/categories/",
